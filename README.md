@@ -1,89 +1,93 @@
 # 🧠 AI-Powered Google Form & Data Generator
 
-A minimalistic web app that lets users build custom forms and populate them with **synthetically generated, human-like data** using the **Gemini API**. Ideal for creating feedback samples, demo data, or testing datasets.
-
-## 🚀 Features
-
-- 🔧 Dynamic form builder (title, multiple questions)
-- ✅ Supports question types: Short Answer, Paragraph, MCQ, Checkboxes, Dropdown
-- 📤 Import options from CSV
-- ✨ Generate realistic text responses using AI (Google Gemini)
-- 💾 Save generated form structure as `.json` (locally)
-- 🔗 Simple, clean Tailwind UI
+A lightweight web app that allows users to **build customizable forms** and populate them with **realistic AI-generated data** using the **Google Gemini API**. Once the form is built, it is automatically created in the user's **Google Drive** via a **Google Apps Script backend**.
 
 ---
 
-## 🗂️ Project Structure
+## 🚀 Features
+
+- 🔧 **Form Builder**: Create forms dynamically with various question types.
+- ✅ **Supported Types**:
+  - Short Answer
+  - Paragraph
+  - Multiple Choice
+  - Checkboxes
+  - Dropdown
+- 📤 **Option Import**:
+  - Manual Entry
+  - CSV Upload
+- 🤖 **AI-Generated Responses**:
+  - Uses Google Gemini (v2.5 Flash) to generate realistic form responses.
+- 📄 **Google Form Creation**:
+  - Sends structured data to a deployed Apps Script backend to create actual Google Forms.
+- 🧼 Clean and responsive UI using Tailwind CSS.
+
+---
+
+## 📁 Project Structure
 
 ```
-ai-form-generator/
-├── public/
-│   ├── index.html       # Frontend UI
-│   ├── script.js        # Logic to build form, call AI API
-│   └── style.css        # Optional extra styles (Tailwind-based)
-├── server/
-│   └── index.js         # Express backend (handles form save)
-├── data/
-│   └── sample.csv       # Example options input
+AI-FORM-GENERATOR/
 ├── .gitignore
-├── package.json
-└── README.md
+├── Code.gs               # Google Apps Script to generate the form in Drive
+├── index.html            # Frontend (UI + layout)
+├── README.md             # You're here!
+├── sample.csv            # Sample CSV for uploading options
+├── script.js             # All client-side logic & API integration
+├── styles.css            # Tailwind custom styles (if any)
 ```
 
 ---
 
 ## 🛠️ Getting Started
 
-### 1. Clone the Repo
+### 1. Clone this repository
 
 ```bash
 git clone https://github.com/your-username/ai-form-generator.git
 cd ai-form-generator
 ```
 
-### 2. Install Dependencies
+### 2. Open `index.html` directly in your browser
+
+You can use Live Server in VS Code for auto reload:
 
 ```bash
-npm install
-```
-
-### 3. Run the Server
-
-```bash
-node server/index.js
-```
-
-Server will run at: [http://localhost:3000](http://localhost:3000)
-
----
-
-## 🌐 Open the Frontend
-
-You can open the `public/index.html` directly in your browser, or run a dev server:
-
-```bash
-npx live-server public
+npx live-server
 ```
 
 ---
 
-## 🔐 Google Gemini API Key
+## 🔑 Configuration
 
-1. Go to [https://makersuite.google.com/app](https://makersuite.google.com/app)
-2. Get your API key
-3. Replace in `script.js`:
+### 1. Gemini API
 
+- Visit [https://makersuite.google.com/app](https://makersuite.google.com/app) and generate your **Gemini API key**.
+- Replace the placeholder in `script.js`:
 ```js
-const response = await fetch(
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=YOUR_API_KEY",
+const GEMINI_API_KEY = "YOUR_ACTUAL_API_KEY";
+```
+
+### 2. Google Apps Script
+
+- Open `Code.gs` in [https://script.google.com](https://script.google.com).
+- Paste the code, click `Deploy > Manage Deployments > New Deployment`:
+  - Select **Web App**
+  - **Execute as**: Me
+  - **Access**: Anyone
+- Copy the generated Web App URL and paste it into `script.js`:
+```js
+const APPS_SCRIPT_URL = "YOUR_DEPLOYED_SCRIPT_URL";
 ```
 
 ---
 
-## 📝 Example CSV
+## 📤 Using CSV Upload
 
-`data/sample.csv`:
+- For choice-based questions (MCQ, Dropdown, Checkboxes), upload a CSV file.
+- CSV must have **one option per row** (only 1 column).
 
+Example `sample.csv`:
 ```csv
 Excellent
 Good
@@ -94,27 +98,34 @@ Very Poor
 
 ---
 
-## 📄 Output Example
+## ✨ Example Usage
 
-When you click **"Generate Form"**, it saves a local file like:
-
-```
-data/form-1723108920392.json
-```
-
-Which contains the form structure (title, questions, and options).
-
----
-
-## 📦 Future Improvements
-
-- 🌍 Firebase or MongoDB form storage
-- 🧪 Download form as HTML or Google Form API integration
-- 📊 Preview responses in table/chart format
+1. Enter a form title.
+2. Add one or more questions.
+3. Choose a type and add options (via textarea or CSV).
+4. (Optional) Use **"Generate with AI"** for auto-generated responses.
+5. Click **Generate Form**.
+6. You'll get a success link to your live Google Form.
 
 ---
 
-## 📃 License
+## 🧪 Sample Prompt Sent to Gemini
+
+```text
+Generate 5 realistic responses for the question: "What was your favorite session in the workshop?" in paragraph format. Return as a plain JSON array, e.g., ["response1","response2"]
+```
+
+---
+
+## ✅ To-Do & Improvements
+
+- [ ] Add real-time form preview
+- [ ] Save forms locally (offline version)
+- [ ] Export to HTML or PDF
+- [ ] Admin dashboard to manage generated forms
+
+---
+
+## 📄 License
 
 MIT License
-
