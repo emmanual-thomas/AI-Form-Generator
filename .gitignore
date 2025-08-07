@@ -1,0 +1,30 @@
+# Node modules
+node_modules/
+
+# Environment files
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS/system files
+.DS_Store
+Thumbs.db
+
+# VS Code settings
+.vscode/
+
+# Compiled output / builds
+dist/
+build/
+
+# Data or generated form files
+data/form-*.json
+data/*.csv
+
+# Optional: Live Server cache
+.livereload.json
